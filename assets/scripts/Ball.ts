@@ -9,7 +9,12 @@ import {
     RigidBody2D,
     Vec2,
     Vec3,
-    Label
+    Label,
+    AudioSource,
+    Collider2D,
+    Contact2DType,
+    PhysicsSystem2D,
+    IPhysics2DContact, Color
 } from 'cc';
 
 const { ccclass, property } = _decorator;
@@ -66,6 +71,18 @@ export class Ball extends Component {
 
 
     // =========================
+    // 音效
+    // =========================
+
+    @property(AudioSource)
+    audioSource: AudioSource | null = null;
+
+
+    @property(AudioSource)
+    bounceAudio: AudioSource | null = null;
+
+
+    // =========================
     // 内部变量
     // =========================
 
@@ -113,6 +130,17 @@ export class Ball extends Component {
             this.onMouseUp,
             this
         );
+
+
+        // =========================
+        // 监听物理碰撞
+        // =========================
+
+        PhysicsSystem2D.instance.on(
+            Contact2DType.BEGIN_CONTACT,
+            this.onBeginContact,
+            this
+        );
     }
 
 
@@ -132,6 +160,14 @@ export class Ball extends Component {
         input.off(
             Input.EventType.MOUSE_UP,
             this.onMouseUp,
+            this
+        );
+
+
+        // 取消物理碰撞监听
+        PhysicsSystem2D.instance.off(
+            Contact2DType.BEGIN_CONTACT,
+            this.onBeginContact,
             this
         );
     }
@@ -170,6 +206,42 @@ export class Ball extends Component {
 
                 this.hideCooldown();
             }
+        }
+    }
+
+
+    // =========================
+    // 物理碰撞
+    // =========================
+
+    onBeginContact(
+        selfCollider: Collider2D,
+        otherCollider: Collider2D,
+        contact: IPhysics2DContact | null
+    ) {
+
+        /*
+         * 判断是不是这个球的碰撞体
+         */
+
+        if (
+            selfCollider.node !== this.node &&
+            otherCollider.node !== this.node
+        ) {
+
+            return;
+        }
+
+
+        /*
+         * 播放 bounce
+         */
+
+        if (
+            this.bounceAudio
+        ) {
+
+            this.bounceAudio.play();
         }
     }
 
@@ -263,37 +335,21 @@ export class Ball extends Component {
 
 
     // =========================
-    // 更新箭头
+    // 更新箭头（修复版 - 不再出现大片红色）
     // =========================
-
     updateArrow(event: EventMouse) {
+        if (!this.arrow) return;
 
-        if (!this.arrow) {
-            return;
-        }
-
-        // 鼠标的屏幕坐标
+        // 1. 计算鼠标相对球的位置和距离
         const mouse = event.getUILocation();
-
-        // 球的世界坐标
         const ballPosition = this.node.worldPosition;
-
-        // 球 → 鼠标
         let x = mouse.x - ballPosition.x;
         let y = mouse.y - ballPosition.y;
+        const distance = Math.sqrt(x * x + y * y);
 
-        // 计算距离
-        const distance = Math.sqrt(
-            x * x +
-            y * y
-        );
-
-        // 超过最大距离，只限制长度，不限制方向
+        // 限制最大瞄准距离
         if (distance > this.maxForceDistance) {
-
-            const scale =
-                this.maxForceDistance / distance;
-
+            const scale = this.maxForceDistance / distance;
             x *= scale;
             y *= scale;
         }
@@ -301,113 +357,72 @@ export class Ball extends Component {
         // 保存瞄准数据
         this.aimX = x;
         this.aimY = y;
+        this.aimLength = Math.sqrt(x * x + y * y);
 
-        this.aimLength = Math.sqrt(
-            x * x +
-            y * y
-        );
-
-        // =========================
-        // 箭头位置
-        // =========================
-
-        // 箭头虽然是球的子节点，
-        // 但位置使用球的世界坐标。
-        this.arrow.node.worldPosition =
-            ballPosition;
-
-
-        // =========================
-        // 关键：
-        // 强制箭头不跟随球旋转
-        // =========================
-
+        // 2. 箭头位置和角度
+        this.arrow.node.worldPosition = ballPosition;
         this.arrow.node.angle = 0;
 
-
-        // =========================
-        // 绘制箭头
-        // =========================
-
         const graphics = this.arrow;
-
         graphics.clear();
 
-
-        // 箭头主体
-        graphics.moveTo(
-            0,
-            0
-        );
-
-        graphics.lineTo(
-            x,
-            y
-        );
-
-        graphics.stroke();
-
-
-        // =========================
-        // 箭头尖端
-        // =========================
-
-        if (this.aimLength > 1) {
-
-            const nx =
-                x / this.aimLength;
-
-            const ny =
-                y / this.aimLength;
-
-            const px = -ny;
-            const py = nx;
-
-
-            // 箭头长度
-            const arrowSize = 20;
-
-            // 箭头宽度
-            const arrowWidth = 9;
-
-
-            graphics.moveTo(
-                x,
-                y
-            );
-
-
-            graphics.lineTo(
-                x -
-                nx * arrowSize +
-                px * arrowWidth,
-
-                y -
-                ny * arrowSize +
-                py * arrowWidth
-            );
-
-
-            graphics.lineTo(
-                x -
-                nx * arrowSize -
-                px * arrowWidth,
-
-                y -
-                ny * arrowSize -
-                py * arrowWidth
-            );
-
-
-            graphics.lineTo(
-                x,
-                y
-            );
-
-
-            graphics.stroke();
+        // 如果拉得太短，不画
+        if (this.aimLength <= 5) {
+            this.arrow.node.active = true;
+            return;
         }
 
+        // 3. 蓄力比例 (0 ~ 1)
+        const powerRatio = this.aimLength / this.maxForceDistance;
+
+        // 4. 动态颜色：从浅灰白 → 大红色
+        const r = 255;
+        const g = Math.floor(200 - 200 * powerRatio);
+        const b = Math.floor(200 - 200 * powerRatio);
+        const lineColor = new Color(r, g, b, 255);
+
+        // 5. 先画箭头头部（fill）—— 必须在 clear 之后、stroke 之前画
+        //    这样 fill 只会填充箭头本身，不会误填线条路径
+        const arrowSize = 12 + 8 * powerRatio;
+        const nx = x / this.aimLength;
+        const ny = y / this.aimLength;
+        const px = -ny;
+        const py = nx;
+
+        const tipX = x;
+        const tipY = y;
+        const wingX1 = x - nx * arrowSize + px * arrowSize * 0.5;
+        const wingY1 = y - ny * arrowSize + py * arrowSize * 0.5;
+        const wingX2 = x - nx * arrowSize - px * arrowSize * 0.5;
+        const wingY2 = y - ny * arrowSize - py * arrowSize * 0.5;
+
+        graphics.fillColor = lineColor;
+        graphics.moveTo(tipX, tipY);
+        graphics.lineTo(wingX1, wingY1);
+        graphics.lineTo(wingX2, wingY2);
+        graphics.lineTo(tipX, tipY);  // ← 显式闭合，不用 close()
+        graphics.fill();
+
+        // 6. 再画瞄准线（stroke）—— stroke 不影响已填充的箭头
+        const segments = 10;
+        const dx = x / segments;
+        const dy = y / segments;
+
+        for (let i = 0; i < segments; i++) {
+            const startWidth = 2 + (4 * powerRatio) * (i / segments);
+            const endWidth = 2 + (4 * powerRatio) * ((i + 1) / segments);
+            
+            const sx = dx * i;
+            const sy = dy * i;
+            const ex = dx * (i + 1);
+            const ey = dy * (i + 1);
+
+            graphics.strokeColor = lineColor;
+            graphics.lineWidth = (startWidth + endWidth) / 2;
+            graphics.moveTo(sx, sy);
+            graphics.lineTo(ex, ey);
+            graphics.stroke();
+        }
 
         // 显示箭头
         this.arrow.node.active = true;
@@ -480,14 +495,8 @@ export class Ball extends Component {
         /*
          * 施加冲量
          *
-         * 物理引擎根据刚体实际质量
+         * 物理引擎根据球实际质量
          * 自动计算速度变化。
-         *
-         * 质量来自：
-         *
-         * CircleCollider2D
-         * ↓
-         * Density
          */
         body.applyLinearImpulse(
             new Vec2(
@@ -502,6 +511,18 @@ export class Ball extends Component {
 
             true
         );
+
+
+        // =========================
+        // 播放发射音效
+        // =========================    
+
+        if (
+            this.audioSource
+        ) {
+
+            this.audioSource.play();
+        }
 
 
         /*
