@@ -1,5 +1,5 @@
 {
   "imports": {
-    "cc": "./../cocos-js/cc.js"
+    "cc": "/Barketball/cocos-js/cc.js?raw=true"
   }
 }
