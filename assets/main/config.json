@@ -1,0 +1,155 @@
+{
+    "importBase": "import",
+    "nativeBase": "native",
+    "name": "main",
+    "deps": [],
+    "uuids": [
+        "059dfa4b-65a8-4c58-87b5-bbdaace37823",
+        "059dfa4b-65a8-4c58-87b5-bbdaace37823@6c48a",
+        "059dfa4b-65a8-4c58-87b5-bbdaace37823@f9941",
+        "1389f691-8246-4454-984b-6d7b324b975b",
+        "1f1ab207-1ff2-47f7-a9fa-ce26d85f0fba",
+        "20835ba4-6145-4fbc-a58a-051ce700aa3e",
+        "20835ba4-6145-4fbc-a58a-051ce700aa3e@6c48a",
+        "20835ba4-6145-4fbc-a58a-051ce700aa3e@f9941",
+        "25281fb4-3256-4258-a6af-39f178534d71",
+        "25281fb4-3256-4258-a6af-39f178534d71@6c48a",
+        "25281fb4-3256-4258-a6af-39f178534d71@f9941",
+        "2ef56a00-d918-4e04-a468-468c37fa5e7b",
+        "2ef56a00-d918-4e04-a468-468c37fa5e7b@6c48a",
+        "2ef56a00-d918-4e04-a468-468c37fa5e7b@f9941",
+        "2fa46009-7c43-48ca-a369-54e889c5ae1d",
+        "3355954e-909d-4f30-8c00-90f27f1042b6",
+        "3355954e-909d-4f30-8c00-90f27f1042b6@6c48a",
+        "3355954e-909d-4f30-8c00-90f27f1042b6@f9941",
+        "3a4c17b0-6beb-4860-862e-307d8cccb728",
+        "3a4c17b0-6beb-4860-862e-307d8cccb728@6c48a",
+        "3a4c17b0-6beb-4860-862e-307d8cccb728@f9941",
+        "45813ba9-31ba-40bc-a509-2b7f06744834",
+        "47fac824-4238-47fa-8785-48ee35c2dad9",
+        "47fac824-4238-47fa-8785-48ee35c2dad9@6c48a",
+        "47fac824-4238-47fa-8785-48ee35c2dad9@f9941",
+        "53d41729-63b3-4157-99d6-d8263692b6e6",
+        "53d41729-63b3-4157-99d6-d8263692b6e6@6c48a",
+        "53d41729-63b3-4157-99d6-d8263692b6e6@f9941",
+        "544e49d6-3f05-4fa8-9a9e-091f98fc2ce8",
+        "544e49d6-3f05-4fa8-9a9e-091f98fc2ce8@6c48a",
+        "544e49d6-3f05-4fa8-9a9e-091f98fc2ce8@f9941",
+        "55a668aa-c372-4466-af59-9b1b7482e1d7",
+        "5c4f9d2e-54c3-465f-983f-8075df1b67f7",
+        "76f8a579-f990-48cc-bc5c-691a95bf2120",
+        "76f8a579-f990-48cc-bc5c-691a95bf2120@6c48a",
+        "76f8a579-f990-48cc-bc5c-691a95bf2120@f9941",
+        "86385963-3de8-437e-85cc-717df82bd37b",
+        "86385963-3de8-437e-85cc-717df82bd37b@6c48a",
+        "86385963-3de8-437e-85cc-717df82bd37b@f9941",
+        "86626e4c-86da-419e-8fc5-5f117f98a751",
+        "86626e4c-86da-419e-8fc5-5f117f98a751@6c48a",
+        "86626e4c-86da-419e-8fc5-5f117f98a751@f9941",
+        "951249e0-9f16-456d-8b85-a6ca954da16b",
+        "951249e0-9f16-456d-8b85-a6ca954da16b@6c48a",
+        "951249e0-9f16-456d-8b85-a6ca954da16b@f9941",
+        "982e7e2a-8007-4b70-8d97-05d073b0c620",
+        "982e7e2a-8007-4b70-8d97-05d073b0c620@6c48a",
+        "982e7e2a-8007-4b70-8d97-05d073b0c620@f9941",
+        "9c9bac46-e10c-41b2-9dce-dc6b4b851aaf",
+        "9c9bac46-e10c-41b2-9dce-dc6b4b851aaf@6c48a",
+        "9c9bac46-e10c-41b2-9dce-dc6b4b851aaf@f9941",
+        "9d81a140-da66-4e47-b01a-51f139fc99af",
+        "ab5fa347-5e6c-49c4-9756-8c7445be5137",
+        "b8b51c49-7fd6-4279-ac6b-8d73fdc3d333",
+        "ba21476f-2866-4f81-9c4d-6e359316e448",
+        "bd7f054e-97a6-4d51-91a4-f1db1afa4bdd",
+        "c8a93661-3393-46f5-8aeb-9bd138f04aa6",
+        "c8a93661-3393-46f5-8aeb-9bd138f04aa6@6c48a",
+        "c8a93661-3393-46f5-8aeb-9bd138f04aa6@f9941",
+        "dcf51375-4ca4-4162-920a-ea632a994d5f",
+        "e3993963-8264-4a20-ac88-7cf4c1bcce4f",
+        "e3993963-8264-4a20-ac88-7cf4c1bcce4f@6c48a",
+        "e3993963-8264-4a20-ac88-7cf4c1bcce4f@f9941",
+        "e56ddabc-69c1-4280-99be-515fea5273d9",
+        "e56ddabc-69c1-4280-99be-515fea5273d9@6c48a",
+        "e56ddabc-69c1-4280-99be-515fea5273d9@f9941",
+        "fd5c9b8a-1538-4fdd-97b9-19eae431e5f9",
+        "fd8ec536-a354-4a17-9c74-4f3883c378c8",
+        "fd9a340d-73b6-4a3e-91cb-c1f2047ebf32"
+    ],
+    "paths": {
+        "fd5c9b8a-1538-4fdd-97b9-19eae431e5f9": [
+            "db:/assets/scene/Level1",
+            "cc.SceneAsset",
+            1
+        ],
+        "9d81a140-da66-4e47-b01a-51f139fc99af": [
+            "db:/assets/scene/Level2",
+            "cc.SceneAsset",
+            1
+        ],
+        "fd9a340d-73b6-4a3e-91cb-c1f2047ebf32": [
+            "db:/assets/scene/Level3",
+            "cc.SceneAsset",
+            1
+        ],
+        "1f1ab207-1ff2-47f7-a9fa-ce26d85f0fba": [
+            "db:/assets/scene/Level4",
+            "cc.SceneAsset",
+            1
+        ],
+        "1389f691-8246-4454-984b-6d7b324b975b": [
+            "db:/assets/scene/Level5",
+            "cc.SceneAsset",
+            1
+        ],
+        "bd7f054e-97a6-4d51-91a4-f1db1afa4bdd": [
+            "db:/assets/scene/Level6",
+            "cc.SceneAsset",
+            1
+        ],
+        "dcf51375-4ca4-4162-920a-ea632a994d5f": [
+            "db:/assets/scene/Level7",
+            "cc.SceneAsset",
+            1
+        ],
+        "b8b51c49-7fd6-4279-ac6b-8d73fdc3d333": [
+            "db:/assets/scene/Level8",
+            "cc.SceneAsset",
+            1
+        ],
+        "5c4f9d2e-54c3-465f-983f-8075df1b67f7": [
+            "db:/assets/scene/LevelSelect",
+            "cc.SceneAsset",
+            1
+        ],
+        "fd8ec536-a354-4a17-9c74-4f3883c378c8": [
+            "db:/internal/default_renderpipeline/builtin-forward",
+            "cc.RenderPipeline",
+            1
+        ],
+        "ba21476f-2866-4f81-9c4d-6e359316e448": [
+            "db:/internal/physics/default-physics-material",
+            "cc.PhysicsMaterial",
+            1
+        ]
+    },
+    "scenes": {
+        "db://assets/scene/Level1.scene": "fd5c9b8a-1538-4fdd-97b9-19eae431e5f9",
+        "db://assets/scene/Level2.scene": "9d81a140-da66-4e47-b01a-51f139fc99af",
+        "db://assets/scene/Level3.scene": "fd9a340d-73b6-4a3e-91cb-c1f2047ebf32",
+        "db://assets/scene/Level4.scene": "1f1ab207-1ff2-47f7-a9fa-ce26d85f0fba",
+        "db://assets/scene/Level5.scene": "1389f691-8246-4454-984b-6d7b324b975b",
+        "db://assets/scene/Level6.scene": "bd7f054e-97a6-4d51-91a4-f1db1afa4bdd",
+        "db://assets/scene/Level7.scene": "dcf51375-4ca4-4162-920a-ea632a994d5f",
+        "db://assets/scene/Level8.scene": "b8b51c49-7fd6-4279-ac6b-8d73fdc3d333",
+        "db://assets/scene/LevelSelect.scene": "5c4f9d2e-54c3-465f-983f-8075df1b67f7"
+    },
+    "packs": {},
+    "versions": {
+        "import": [],
+        "native": []
+    },
+    "redirect": [],
+    "debug": true,
+    "extensionMap": {},
+    "hasPreloadScript": true,
+    "dependencyRelationships": {}
+}
